@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Webpage title -->
+        <title>WMGzon - {{page_name}}</title>
+        <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='WMGzon-Icon.png') }}">
+
+        <!-- Bootstrap stuff -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <!-- My custom CSS (must go after to take priority) -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='Global-CSS.css') }}">
+    </head>
+    <body>
+        {% extends 'index-small.html' %}
+
+        {% block content %}
+        <div class="content" style="padding-top: 50px">
+            <div class="col-sm-3">
+                <!-- space filler -->
+            </div>
+            <div class="col-sm-6 basic-box" style="padding-top: 5px; padding-bottom: 5px">
+                <h2 class="account-heading">Create your Account:</h2>
+                <form method="POST" action="/create-account-form">
+                    <!-- Email -->
+                    <div>
+                        <label for="account_em">Email:</label>
+                        <input class="text-entry-boxes" type="text" id="account_em" name="account_em" required>
+                    </div>
+                    <!-- First name -->
+                    <div>
+                        <label for="account_fn">First Name:</label>
+                        <input class="text-entry-boxes" type="text" id="account_fn" name="account_fn" required>
+                    </div>
+                    <!-- Last name -->
+                    <div>
+                        <label for="account_ln">Last Name:</label>
+                        <input class="text-entry-boxes" type="text" id="account_ln" name="account_ln" required>
+                    </div>
+                    <!-- Password -->
+                    <div>
+                        <label for="account_pw">Password:</label>
+                        <input class="text-entry-boxes" type="password" id="account_pw" name="account_pw" required>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="account_cpw">Confirm Password:</label>
+                        <input class="text-entry-boxes" type="password" id="account_cpw" name="account_cpw" required>
+                    </div>
+                    <!-- Sign up as seller -->
+                    <br>
+                    <div>
+                        <input type="checkbox" id="account_seller" name="account_seller">
+                        <label for="account_seller">Sign up as seller?</label>
+                    </div>
+                    <!-- Submit form button -->
+                    <div class="center-content" style="padding-top: 5px;">
+                        <input class="create-account-button" type="submit" id="submit-account" value="Create">
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-3">
+                <!-- space filler -->
+            </div>
+        </div>
+        {% endblock %}
+    </body>
+</html>

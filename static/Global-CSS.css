@@ -1,0 +1,351 @@
+/* standard CSS stuff */
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background-color: rgb(69,75,93);
+}
+h1 {
+    padding: 5px;
+    color: white;
+    font-size: x-large;
+}
+h2 {
+    font-size: large;
+    font-weight: normal;
+    color: white;
+}
+p {
+    color: rgb(255,255,255);
+    padding: 5px;
+}
+
+/* general CSS stuff */
+.center-content {
+    text-align: center;
+}
+.place-mid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.place-bot {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.horizontal-divs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.basic-box {
+    border-radius: 15px;
+    background-color: #D9D9D9;
+}
+
+/* custom header CSS stuff */
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #262626;
+    color: #fff;
+    padding: auto;
+}
+.headerLeft {
+    text-align: left;
+}
+.headerCenter {
+    text-align: center;
+}
+.headerRight {
+    text-align: right;
+
+}
+.textCenter {
+    text-align: center;
+}
+.subheader {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+    left: 0;
+    width: 100%;
+    background-color: #262626;
+    color: #fff;
+    padding: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    z-index: 1000;
+}
+#subheaderID{
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+}
+.subheaderAnchors {
+    color: inherit;
+    border-left: solid;
+    border-right: solid;
+    border-width: 2px;
+    border-color:rgb(69,75,93);
+}
+.logo {
+    padding: 10px;
+    width: 60%;
+    height: auto;
+}
+.headerButton {
+    background: none;
+    border: none;
+    color: inherit;
+}
+.headerButton:hover {
+    color: rgb(66, 135, 245);
+    font-weight: bold;
+}
+.basketText {
+    font-size: small;
+}
+
+/* product content CSS stuff */
+.content {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.filter-box {
+    border-radius: 10px;
+    background-color: rgb(148,148,148);
+    height: auto;
+}
+.product-box {
+    border-radius: 15px;
+    width: 590px;
+    height: 300px;
+    background-color: #D9D9D9;
+}
+.product-background-box {
+    border-radius: 15px;
+    width: 600px;
+    background-color: rgb(69,75,93);
+}
+.product-bottom-button {
+    color: #262626;
+    background-color: #FF9900;
+    border-radius: 5px;
+    border: none;
+    font-size: larger;
+    padding: 5px;
+}
+.product-bottom-button:hover {
+    text-decoration: underline;
+    color: #262626;
+}
+.product-image {
+    height: auto; 
+    width: auto; 
+    max-height: 250px;
+}
+.product-box-text {
+    color:#262626;
+}
+.product-box-text:hover {
+    color:#c27400;
+    text-decoration: none;
+}
+
+/* login box CSS */
+.login-box {
+    border-radius: 15px;
+    background-color: #D9D9D9;
+}
+.login-text {
+    color: rgb(69,75,93);
+}
+.login-button {
+    background-color: #FF9900;
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+.login-button:hover {
+    background-color: #c27400;
+    font-weight: bold;
+}
+.login-textbox {
+    color: rgb(69,75,93);
+    width: 100%;
+}
+.login-error {
+    color: rgb(202, 11, 11);
+    font-weight: bold;
+}
+.create-account-button-initial {
+    color: #FF9900;
+    background: none;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.create-account-button-initial:hover {
+    text-decoration: underline;
+}
+
+/* account creation */
+.create-account-button {
+    color: #262626;
+    background-color: #FF9900;
+    border-radius: 5px;
+    border: none;
+    font-size: larger;
+    padding: 5px;
+}
+.create-account-button:hover {
+    text-decoration: underline;
+    color: #262626;
+}
+
+/* account management CSS */
+.account-heading {
+    font-weight: bold;
+    color: #262626;
+}
+
+.account-text {
+    color: #262626;
+}
+
+.log-out-button {
+    color: rgb(202, 11, 11);
+    background-color: #D9D9D9;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    font-size: larger;
+}
+.log-out-button:hover {
+    text-decoration: underline;
+}
+
+/* product save / edit  */
+.text-entry-boxes {
+    width: 100%;
+}
+.edit-save-bottom-button {
+    color: #262626;
+    background-color: #FF9900;
+    border-radius: 5px;
+    border: none;
+    font-size: larger;
+    padding: 5px;
+}
+.edit-save-bottom-button:hover {
+    text-decoration: underline;
+    color: #262626;
+}
+.add-remove-button {
+    color: #262626;
+    background-color: #FF9900;
+    border-radius: 5px;
+    border: none;
+    font-size: small;
+    font-weight: bold;
+    padding: 5px;
+}
+.add-remove-button:hover {
+    text-decoration: underline;
+    color: #262626;
+}
+.add-product {
+    width: 275px;
+    height: 275px;
+}
+
+/* product overview page */
+.product-image-box {
+    text-align: center;
+    width:auto;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+}
+.big-product-image {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: auto; 
+    width: auto; 
+    max-height: 500px;
+}
+.product-desc-box {
+    width:auto;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+}
+.background-boxes {
+    width:auto;
+    background-color: rgb(69,75,93);
+}
+.purchasing-box {
+    width:auto;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+}
+.heading-label {
+    font-size: xx-large;
+    font-weight: bold;
+}
+.price-label {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+/* customer selection buttons */
+.custom-radio {
+    position: relative;
+    text-align: center;
+    width: auto;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: #f0f0f0;
+}
+
+.custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-radio:hover input ~ .radio-btn {
+    background-color: #f0f0f0;
+}
+
+.custom-radio input:checked ~ .radio-btn {
+    background-color: #000000;
+}
+
+.custom-radio .radio-btn:after {
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+}
+
+.radio-buttons-horizontal {
+    display: flex;
+    flex-direction: row;
+}

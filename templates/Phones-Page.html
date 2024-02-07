@@ -1,0 +1,89 @@
+<!-- Phones-Page.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Webpage title -->
+        <title>WMGzon - {{page_name}}</title>
+        <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='WMGzon-Icon.png') }}">
+
+        <!-- Bootstrap stuff -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <!-- My custom CSS (must go after to take priority) -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='Global-CSS.css') }}">
+    </head>
+    <body>
+        {% extends 'index.html' %}
+
+        {% block content %}
+        <div class="content">
+            <!-- filter section -->
+            <div class="filter-box col-sm-2">
+                <h2 style="padding-top: 10px;" class="col-sm-3">Filters</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum mattis pellentesque id nibh tortor id aliquet lectus proin. Est ultricies integer quis auctor elit sed vulputate mi sit. Sit amet justo donec enim diam vulputate ut pharetra. Tortor dignissim convallis aenean et tortor at. Tristique senectus et netus et malesuada fames ac. Vitae justo eget magna fermentum iaculis eu non diam. Nec ullamcorper sit amet risus nullam eget felis eget. In eu mi bibendum neque egestas. Pellentesque id nibh tortor id aliquet lectus proin. Tellus orci ac auctor augue mauris augue neque gravida.</p>
+            </div>
+            <!-- main phones -->
+            <div class="content col-sm-10" style="flex-wrap: wrap">
+                <!-- box to appear when seller / admin is logged in -->
+                {% if CurrentUser.permission == "Admin" or CurrentUser.permission == "Seller" %}
+                <div class="product-background-box" style="padding: 10px">
+                    <div class="product-box center-content" style="padding: 10px; color: rgb(35, 35, 35);">
+                        <a href="{{ url_for('form') }}">
+                            <img class="add-product" src="{{ url_for('static', filename='add-product.png') }}">
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- repeating loop of all products -->
+                {% for each in products %}
+                <div class="product-background-box" style="padding: 10px">
+                    <a class="product-box-text" href="{{ url_for('detail', indexID=each.id) }}">
+                        <div class="product-box place-bot" style="padding: 10px; color: rgb(35, 35, 35);">
+                            <div class="horizontal-divs">
+                                <div style="width: 300px;">
+                                    <h4>{{each.product_name}} {% if CurrentUser.permission == "Admin" or CurrentUser.permission == "Seller" %}(ID: {{each.id}}){% endif %}</h4>
+                                    <h5>£{{each.price}}</h5>
+                                    <b>Storage Sizes:</b><br>
+                                    {% if each.storage_sizes is none %}
+                                        No Storage Sizes Found
+                                    {% else %}
+                                        {% for eachsize in each.storage_sizes %}
+                                        {{eachsize}},
+                                        {% endfor %}
+                                    {% endif %}
+                                    <br>
+                                    <b>Colours:</b><br>
+                                    {% if each.colours is none %}
+                                        No Colours Found
+                                    {% else %}
+                                        {% for eachcolour in each.colours %}
+                                        {{eachcolour}},
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    {% if each.imageid is not none %}
+                                    <img src="{{ url_for('static', filename=each.imageid) }}" alt="Product Image" class="product-image">
+                                    {% else %}
+                                    No Image Found
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if CurrentUser.permission == "Admin" or (CurrentUser.permission == "Seller" and each.sellerid == CurrentUser.email) %}
+                            <div>
+                                <a class="product-bottom-button" href="{{ url_for('form', indexID=each.id) }}">Edit</a>
+                                <a class="product-bottom-button" href="{{ url_for('delete', indexID=each.id) }}">Delete</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endblock %}
+    </body>
+</html>

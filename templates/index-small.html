@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Webpage title -->
+    <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='WMGzon-Icon.png') }}">
+
+    <!-- Bootstrap stuff -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- My custom CSS (must go after to take priority) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='Global-CSS.css') }}">
+</head>
+<body>
+    <!-- Header / Search bar -->
+    <div class="header" style="padding-top: 10px; padding-bottom: 10px;">
+        <!-- logo -->
+        <div class="col-sm-4 headerLeft"> <!-- bootstrap columns -->
+            <a href = "http://127.0.0.1:5000/">
+                <button class="headerButton">
+                    <img src="{{ url_for('static', filename='WMGzon-Logo.png') }}" alt="WMGzon Logo" height="71" width="241" style="padding: 2px;">
+                </button>
+            </a>
+        </div>
+    </div>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

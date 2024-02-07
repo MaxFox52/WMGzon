@@ -1,0 +1,65 @@
+[
+    {
+        "ID": 1,
+        "Email": "admin@admin.com",
+        "Password": "admin",
+        "Permissions": "Admin",
+        "First_Name": "Admin",
+        "Last_Name": "Administrator",
+        "Basket_Count": 0
+    },
+    {
+        "ID": 2,
+        "Email": "maxfoxfordham@hotmail.co.uk",
+        "Password": "password",
+        "Permissions": "Admin",
+        "First_Name": "Maximus",
+        "Last_Name": "Fordski",
+        "Basket_Count": 0
+    },
+    {
+        "ID": 3,
+        "Email": "fordhammax@gmail.com",
+        "Password": "password",
+        "Permissions": "User",
+        "First_Name": "Max",
+        "Last_Name": "Fordham",
+        "Basket_Count": 12
+    },
+    {
+        "ID": 4,
+        "Email": "hello@hello.com",
+        "Password": "password",
+        "Permissions": "User",
+        "First_Name": "Hello",
+        "Last_Name": "World",
+        "Basket_Count": 0
+    },
+    {
+        "ID": 5,
+        "Email": "goodbye@goodbye.com",
+        "Password": "password",
+        "Permissions": "Seller",
+        "First_Name": "Goodbye",
+        "Last_Name": "World",
+        "Basket_Count": 0
+    },
+    {
+        "ID": 6,
+        "Email": "admin@apple.com",
+        "Password": "apple",
+        "Permissions": "Seller",
+        "First_Name": "John",
+        "Last_Name": "Appleseed",
+        "Basket_Count": 0
+    },
+    {
+        "ID": 7,
+        "Email": "admin@samsung.com",
+        "Password": "samsung",
+        "Permissions": "Seller",
+        "First_Name": "Sam",
+        "Last_Name": "Sung",
+        "Basket_Count": 0
+    }
+]

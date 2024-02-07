@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Webpage title -->
+    <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='WMGzon-Icon.png') }}">
+
+    <!-- Bootstrap stuff -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- My custom CSS (must go after to take priority) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='Global-CSS.css') }}">
+</head>
+<body>
+    <!-- Header / Search bar -->
+    <div class="header" style="padding-top: 10px;">
+        <!-- logo -->
+        <div class="col-sm-4 headerLeft"> <!-- bootstrap columns -->
+            <a href = "http://127.0.0.1:5000/">
+                <button class="headerButton">
+                    <img src="{{ url_for('static', filename='WMGzon-Logo.png') }}" alt="WMGzon Logo" height="71" width="241" style="padding: 2px;">
+                </button>
+            </a>
+        </div>
+        <!-- search bar -->
+        <div class="col-sm-4 headerCenter" style="padding-top: 15px;">
+            <input type="text" id="SearchEntry" placeholder="Search" style="padding: 5px; width: 450px">
+        </div>
+        <!-- basket -->
+        <div class="col-sm-4 headerRight">
+            <a style="color: inherit;">
+                <button class="headerButton">
+                    <img src="{{ url_for('static', filename='shopping-cart.png') }}" alt="Basket Img" height="48px" width="48px">
+                    {% if CurrentUser %}
+                        <div>Basket ({{CurrentUser.basket_count}})</div>
+                    {% endif %}
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Nav bar -->
+    <div class="subheader" id="subheaderID">
+        <!-- blank div - might be used later -->
+        <div class="col-sm-2 headerCenter">
+            
+        </div>
+        <!-- Nav bar in the middle -->
+        <div class="col-sm-8 headerCenter">
+            <a href="https://en.wikipedia.org/wiki/List_of_auto_parts" class="subheaderAnchors">
+                <button class="headerButton">
+                    Car Parts
+                </button>
+            </a>
+            <a href="https://en.wikipedia.org/wiki/Animal" class="subheaderAnchors">
+                <button class="headerButton">
+                    Animals
+                </button>
+            </a>
+            <a href="https://en.wikipedia.org/wiki/Sport" class="subheaderAnchors">
+                <button class="headerButton">
+                    Sports
+                </button>
+            </a>
+                <a href="https://en.wikipedia.org/wiki/Book" class="subheaderAnchors">
+                <button class="headerButton">
+                    Books
+                </button>
+            </a>
+            <a href="http://127.0.0.1:5000/phones" class="subheaderAnchors">
+                <button class="headerButton">
+                    Phones
+                </button>
+            </a>
+            <a href="https://en.wikipedia.org/wiki/Music#Creation" class="subheaderAnchors">
+                <button class="headerButton">
+                    Music
+                </button>
+            </a>
+        </div>
+        <!-- Login / Account Button -->
+        <div class="col-sm-2 headerRight">
+            <a style="color: inherit;" href="http://127.0.0.1:5000/login">
+                <button class="headerButton">   
+                    {% if CurrentUser %}
+                        Welcome, {{ CurrentUser.first_name }}!
+                    {% else %}
+                        Login Here
+                    {% endif %}
+                </button>
+            </a>
+        </div>
+    </div>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

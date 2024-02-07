@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Webpage title -->
+        <title>WMGzon - {{product.product_name}}</title>
+        <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='WMGzon-Icon.png') }}">
+
+        <!-- Bootstrap stuff -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <!-- My custom CSS (must go after to take priority) -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='Global-CSS.css') }}">
+    </head>
+    <body>
+        {% extends 'index-small.html' %}
+
+        {% block content %}
+        <div class="content">
+            <div class="col-sm-4 background-boxes">
+                <div class="product-image-box">
+                    <img src="{{ url_for('static', filename=product.imageid) }}" alt="Product Image" class="big-product-image">
+                </div>
+            </div>
+            <div class="col-sm-5 product-desc-box">
+                <label class="heading-label">{{product.product_name}}</label>
+                <br>
+                <!-- price: -->
+                <label class="price-label">£{{product.price}}</label>
+                <br>
+                <!-- stroage sizes begin here: -->
+                STORAGE:
+                <!-- if use storage -->
+                {% if product.storagesizes is not none %}
+                    <div class="radio-buttons-horizontal">
+                        {% for storages in product.storage_sizes %}
+                        <div>
+                            <label class="custom-radio" onclick="selectRadio(this)" data-color="#FF9900">
+                                <input type="radio" name="storage_sizes">
+                                {% if storages < 16 %}
+                                    {{storages}}TB
+                                {% else %}
+                                    {{storages}}GB
+                                {% endif %}
+                            </label>
+                        </div> &nbsp; &nbsp; &nbsp;
+                        {% endfor %}
+                    </div>
+                <!-- if no storage -->
+                {% else %}
+                    No storage sizes found
+                {% endif %}
+                <!-- colours begin here: -->
+                COLOUR:
+                <!-- if yes colours -->
+                {% if product.colours is not none %}
+                    <div class="radio-buttons-horizontal">
+                        {% for colours in product.colours %}
+                        <div>
+                            <label class="custom-radio" onclick="selectRadio(this)" data-color="#FF9900">
+                                <input type="radio" name="colours">
+                                {{colours}}
+                            </label>
+                        </div> &nbsp; &nbsp; &nbsp;
+                        {% endfor %}
+                    </div>
+                <!-- if no colours -->
+                {% else %}
+                    No colours found
+                {% endif %}
+                <!-- description: -->
+                DESCRIPTION:
+                <br>
+                <label>{{product.description}}</label>
+            </div>
+            <div class="col-sm-3 background-boxes">
+                <div class="purchasing-box">
+                    yarrrrr
+                </div>
+            </div>
+        </div>
+        <script>
+            function selectRadio(selectedLabel) {
+                // resets the buttons back to white when another is clicked
+                document.querySelectorAll('.custom-radio').forEach(label => {
+                    label.style.backgroundColor = '#fff';
+                });
+                
+                // gets the colour from the button and sets it to that colour
+                const selectedColor = selectedLabel.getAttribute('data-color');
+                selectedLabel.style.backgroundColor = selectedColor;
+            }
+        </script>
+        {% endblock %}
+    </body>
+</html>

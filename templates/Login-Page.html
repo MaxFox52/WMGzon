@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Webpage title -->
+        <title>WMGzon - {{page_name}}</title>
+        <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='WMGzon-Icon.png') }}">
+
+        <!-- Bootstrap stuff -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <!-- My custom CSS (must go after to take priority) -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='Global-CSS.css') }}">
+    </head>
+    <body>
+        {% extends 'index-small.html' %}
+
+        {% block content %}
+        <div class="content" style="padding-top: 50px">
+            <div class="col-sm-4">
+                <!-- space filler -->
+            </div>
+            <div class="col-sm-4 login-box" style="padding: 10px">
+                <h2 class="login-text" style="font-weight: bold;">Login here!</h2>
+                <form method="POST" action="/account">
+                    <label for="username">Email:</label>
+                    <input type="text" id="username" name="username" class="login-textbox" required>
+                    <br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="login-textbox" required>
+                    <br>
+                    {% if loginErrorInfo %}
+                        <label class="login-error">Error: {{loginErrorInfo}}</label>
+                        <br>
+                    {% else %}
+                    <br>
+                    {% endif %}
+                    <div class="place-mid">
+                        <input class="login-button" type="submit" value="Login">
+                    </div>
+                </form>
+                <a class="place-mid" href="{{ url_for('CreateAccount') }}">
+                    <button class="create-account-button-initial">Need an account? Click here</button> 
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <!-- space filler -->
+            </div>
+        </div>
+        {% endblock %}
+    </body>
+</html>

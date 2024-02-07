@@ -1,0 +1,154 @@
+<!-- form.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Webpage title -->
+        <title>WMGzon - Edit - {{product.product_name}}</title>
+        <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='WMGzon-Icon.png') }}">
+
+        <!-- Bootstrap stuff -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <!-- My custom CSS (must go after to take priority) -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='Global-CSS.css') }}">
+    </head>
+    <body>
+        {% extends 'index-small.html' %}
+
+        {% block content %}
+        <div class="content" style="padding-top: 50px">
+            <div class="col-sm-3">
+                <!-- space filler -->
+            </div>
+            <div class="col-sm-6 basic-box" style="padding: 10px">
+                <form method="POST" action="{{ url_for('save') if product is none else url_for('update', indexID=indexID) }}">
+                    {% if product is none %}
+                        <h2 class="account-heading">Create new product</h2>
+                    {% else %}
+                        <h2 class="account-heading">Edit product</h2>
+                    {% endif %}
+                    <div>
+                        <label for="product_name">Product Name:</label>
+                        <input class="text-entry-boxes" type="text" id="product_name" name="product_name" value="{{product.product_name}}">
+                    </div>
+                    <div>
+                        <label for="description">Description:</label>
+                        <textarea class="text-entry-boxes" id="description" name="description" rows="5">{{product.description}}</textarea>
+                    </div>
+                    <div>
+                        <label for="price">Price: £</label>
+                        <input type="number" id="price" name="price" value="{{product.price}}">
+                    </div>
+                    <div>
+                        <label for="colours">Colours:</label>
+                        <div id="colour-entires">
+                            {% if product.colours is not none %}
+                                {% for colour in product.colours %}
+                                <div class="colour-entires">
+                                    <input type="text" name="entries[]" value="{{ colour }}">
+                                    <button class="add-remove-button" type="button" onclick="removeEntry(this)">Remove</button>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <button class="add-remove-button" type="button" onclick="addEntry()">Add Colour</button>
+                    </div>
+                    <div>
+                        <label for="storage_sizes">Storage Sizes:</label>
+                        <div>
+                            <!-- checks that storage_sizes isn't void -->
+                            {% if product.storage_sizes is not none %}
+                                <!-- iterates throigh possible storage options -->
+                                {% for storages in possible_storage %}
+                                    <!-- making sure its formatted for GB and TB -->
+                                    {% if storages in product.storage_sizes %}
+                                        {% if storages < 16 %}
+                                            <input type="checkbox" id="{{storages}}" name="{{storages}}" value="{{storages}}TB" checked>
+                                            <label>{{storages}}TB</label> &nbsp; &nbsp;
+                                        {% else %}
+                                            <input type="checkbox" id="{{storages}}" name="{{storages}}" value="{{storages}}GB" checked>
+                                            <label>{{storages}}GB</label> &nbsp; &nbsp;
+                                        {% endif %}
+                                    {% else %}
+                                        {% if storages < 16 %}
+                                            <input type="checkbox" id="{{storages}}" name="{{storages}}" value="{{storages}}TB">
+                                            <label>{{storages}}TB</label> &nbsp; &nbsp;
+                                        {% else %}
+                                            <input type="checkbox" id="{{storages}}" name="{{storages}}" value="{{storages}}GB">
+                                            <label>{{storages}}GB</label> &nbsp; &nbsp;
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {% for storages in possible_storage %}
+                                    {% if storages < 16 %}
+                                        <input type="checkbox" id="{{storages}}" name="{{storages}}" value="{{storages}}TB">
+                                        <label>{{storages}}TB</label> &nbsp; &nbsp;
+                                    {% else %}
+                                        <input type="checkbox" id="{{storages}}" name="{{storages}}" value="{{storages}}GB">
+                                        <label>{{storages}}GB</label> &nbsp; &nbsp;
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <label for="imageid">Image:</label><br>
+                        <div>
+                            {% if product.imageid is not none %}
+                                <label>Current Image:</label>
+                                <img src="{{ url_for('static', filename=product.imageid) }}" alt="Product Image" class="product-image">
+                            {% endif %}
+                            <input type="file" id="imageid" name="imageid">
+                        </div>
+                    </div>
+                    <div class="center-content">
+                        <a class="edit-save-bottom-button" href="{{ url_for('phones_page') }}">Cancel</a>
+                        <input class="edit-save-bottom-button" type="submit" id="submit" value="Save">
+                    </div>
+                </form>
+
+                <!-- Script to add and remove colours at the users will -->
+                <script>
+                    function addEntry() {
+                      var container = document.getElementById('colour-entires');
+                      var entryDiv = document.createElement('div');
+                      entryDiv.className = 'colour-entires';
+                
+                      var label = document.createElement('label');
+                      entryDiv.appendChild(label);
+                
+                      var input = document.createElement('input');
+                      input.type = 'text';
+                      input.name = 'entries[]';
+                      entryDiv.appendChild(input);
+                
+                      var removeButton = document.createElement('button');
+                      removeButton.classList.add("add-remove-button")
+                      removeButton.textContent = 'Remove';
+                      removeButton.type = 'button';
+                      removeButton.addEventListener('click', function() {
+                        container.removeChild(entryDiv);
+                      });
+                      entryDiv.appendChild(removeButton);
+                
+                      container.appendChild(entryDiv);
+                    }
+                
+                    function removeEntry(button) {
+                      var container = document.getElementById('colour-entires');
+                      var entryDiv = button.parentElement;
+                      container.removeChild(entryDiv);S
+                    }
+                </script>
+            </div>
+            <div class="col-sm-3">
+                <!-- space filler -->
+            </div>
+        </div>
+        {% endblock %}
+    </body>
+</html>
