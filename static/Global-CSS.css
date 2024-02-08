@@ -161,6 +161,23 @@ p {
     text-decoration: none;
 }
 
+/* filter box */
+.filter-title {
+    padding-top: 10px;
+    text-decoration: underline;
+    color: #fff;
+    font-size: larger;
+}
+
+.filter-text-section {
+    color: #fff;
+    font-size: large;
+}
+
+.filter-text {
+    color: #fff;
+}
+
 /* login box CSS */
 .login-box {
     border-radius: 15px;
