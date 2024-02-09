@@ -28,24 +28,6 @@
     },
     {
         "ID": 4,
-        "Email": "hello@hello.com",
-        "Password": "password",
-        "Permissions": "User",
-        "First_Name": "Hello",
-        "Last_Name": "World",
-        "Basket_Count": 0
-    },
-    {
-        "ID": 5,
-        "Email": "goodbye@goodbye.com",
-        "Password": "password",
-        "Permissions": "Seller",
-        "First_Name": "Goodbye",
-        "Last_Name": "World",
-        "Basket_Count": 0
-    },
-    {
-        "ID": 6,
         "Email": "admin@apple.com",
         "Password": "apple",
         "Permissions": "Seller",
@@ -54,12 +36,48 @@
         "Basket_Count": 0
     },
     {
-        "ID": 7,
+        "ID": 5,
         "Email": "admin@samsung.com",
         "Password": "samsung",
         "Permissions": "Seller",
         "First_Name": "Sam",
         "Last_Name": "Sung",
+        "Basket_Count": 0
+    },
+    {
+        "ID": 6,
+        "Email": "admin@oneplus.com",
+        "Password": "oneplus",
+        "Permissions": "Seller",
+        "First_Name": "One",
+        "Last_Name": "Plus",
+        "Basket_Count": 0
+    },
+    {
+        "ID": 7,
+        "Email": "admin@google.com",
+        "Password": "google",
+        "Permissions": "Seller",
+        "First_Name": "Goo",
+        "Last_Name": "Gle",
+        "Basket_Count": 0
+    },
+    {
+        "ID": 8,
+        "Email": "admin@huawei.com",
+        "Password": "huawei",
+        "Permissions": "Seller",
+        "First_Name": "Hua",
+        "Last_Name": "Wei",
+        "Basket_Count": 0
+    },
+    {
+        "ID": 9,
+        "Email": "admin@xiaomi.com",
+        "Password": "xiaomi",
+        "Permissions": "Seller",
+        "First_Name": "Xiao",
+        "Last_Name": "Mi",
         "Basket_Count": 0
     }
 ]

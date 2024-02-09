@@ -12,6 +12,9 @@ createAccountErrorInfor = ""
 
 possible_storage = [16, 32, 64, 128, 256, 512, 1, 2, 4]
 
+filteredBrands = []
+filteredRatings = []
+
 #################################### Users / Accounts ####################################
 
 #users
@@ -89,6 +92,8 @@ def save():
     aProduct.colours = request.form.getlist("entries[]")
     # sellerid
     aProduct.sellerid = CurrentUser.email
+    # rating
+    aProduct.rating = aProduct.rating
     # finalising product
     aPManager = ProductManager()
     aPManager.insertProduct(aProduct)
@@ -111,6 +116,8 @@ def update(indexID):
     aProduct.colours = request.form.getlist("entries[]")
     # sellerid
     aProduct.sellerid = CurrentUser.email
+    # rating
+    aProduct.rating = aProduct.rating
     # finalising product
     aPManager = ProductManager()
     aPManager.updateProduct(indexID, aProduct)
@@ -132,7 +139,7 @@ def landing_page():
 def phones_page():
     aPManager = ProductManager()
     products = aPManager.getProducts()
-    return render_template('Phones-Page.html', page_name="Phones Page", products = products, CurrentUser = CurrentUser)
+    return render_template('Phones-Page.html', page_name="Phones Page", products = products, CurrentUser = CurrentUser, filteredBrands = filteredBrands, filteredRatings = filteredRatings)
 
 @app.route('/login')
 def login():
@@ -229,6 +236,43 @@ def CreateAccountForm():
         json.dump(data, file, indent=4)
 
     return redirect(url_for('login', loginErrorInfo=""))
+
+@app.route('/filter-products', methods=['GET', 'POST'])
+def FilterProducts():
+    global filteredBrands
+    global filteredRatings
+
+    aPManager = ProductManager()
+    products = aPManager.getProducts()
+
+    # brand filtering
+    if request.form.get('apple_brand'):
+        filteredBrands.append("admin@apple.com")
+    if request.form.get('samsung_brand'):
+        filteredBrands.append("admin@samsung.com")
+    if request.form.get('oneplus_brand'):
+        filteredBrands.append("admin@oneplus.com")
+    if request.form.get('google_brand'):
+        filteredBrands.append("admin@google.com")
+    if request.form.get('huawei_brand'):
+        filteredBrands.append("admin@huawei.com")
+    if request.form.get('xiaomi_brand'):
+        filteredBrands.append("admin@xiaomi.com")
+
+    return render_template('Phones-Page.html', page_name="Phones Page", products = products, CurrentUser = CurrentUser, filteredBrands = filteredBrands, filteredRatings = filteredRatings)
+
+@app.route('/resetFilters')
+def resetFilters():
+    global filteredBrands
+    global filteredRatings
+
+    aPManager = ProductManager()
+    products = aPManager.getProducts()
+
+    filteredBrands = []
+    filteredRatings = []
+
+    return render_template('Phones-Page.html', page_name="Phones Page", products = products, CurrentUser = CurrentUser, filteredBrands = filteredBrands, filteredRatings = filteredRatings)
 
 #################################### Start ####################################
 

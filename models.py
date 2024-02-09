@@ -8,7 +8,8 @@ class Product:
                 'imageid': self.imageid,
                 'product_type': self.product_type,
                 'price': self.price,
-                'sellerid': self.sellerid }
+                'sellerid': self.sellerid,
+                'rating': self.rating }
     
     @staticmethod
     def populate(row):
@@ -22,5 +23,6 @@ class Product:
         aProduct.product_type = row.get('product_type')
         aProduct.price = row.get('price')
         aProduct.sellerid = row.get('sellerid')
+        aProduct.rating = row.get('rating')
 
         return aProduct

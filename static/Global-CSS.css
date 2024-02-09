@@ -43,6 +43,18 @@ p {
     border-radius: 15px;
     background-color: #D9D9D9;
 }
+.basic-button {
+    color: #262626;
+    background-color: #FF9900;
+    border-radius: 5px;
+    border: none;
+    font-size: larger;
+    padding: 5px;
+}
+.basic-button:hover {
+    text-decoration: underline;
+    color: #262626;
+}
 
 /* custom header CSS stuff */
 .header {
@@ -122,7 +134,7 @@ p {
 }
 .filter-box {
     border-radius: 10px;
-    background-color: rgb(148,148,148);
+    background-color: rgb(151, 151, 151);
     height: auto;
 }
 .product-box {

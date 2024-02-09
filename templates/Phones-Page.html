@@ -23,28 +23,50 @@
             <!-- filter section -->
             <div class="filter-box col-sm-2">
                 <label class="filter-title">Filters</label>
-                <form>
+                <form method="POST" action="/filter-products">
                     <div>
                         <label class="filter-text-section">Brand:</label><br>
 
-                        <input type="checkbox" id="apple-brand" name="apple-brand" value="Apple">
-                        <label class="filter-text" for="apple-brand">Apple</label><br>
+                        <input type="checkbox" id="apple_brand" name="apple_brand" value="Apple">
+                        <label class="filter-text" for="apple_brand">Apple</label><br>
 
-                        <input type="checkbox" id="samsung-brand" name="samsung-brand" value="Samsung">
-                        <label class="filter-text" for="samsung-brand">Samsung</label><br>
+                        <input type="checkbox" id="samsung_brand" name="samsung_brand" value="Samsung">
+                        <label class="filter-text" for="samsung_brand">Samsung</label><br>
 
-                        <input type="checkbox" id="oneplus-brand" name="oneplus-brand" value="OnePlus">
-                        <label class="filter-text" for="oneplus-brand">OnePlus</label><br>
+                        <input type="checkbox" id="oneplus_brand" name="oneplus_brand" value="OnePlus">
+                        <label class="filter-text" for="oneplus_brand">OnePlus</label><br>
 
-                        <input type="checkbox" id="google-brand" name="google-brand" value="Google">
-                        <label class="filter-text" for="google-brand">Google</label><br>
+                        <input type="checkbox" id="google_brand" name="google_brand" value="Google">
+                        <label class="filter-text" for="google_brand">Google</label><br>
 
-                        <input type="checkbox" id="huawei-brand" name="huawei-brand" value="Huawei">
+                        <input type="checkbox" id="huawei_brand" name="huawei_brand" value="Huawei">
                         <label class="filter-text" for="huawei-brand">Huawei</label><br>
 
-                        <input type="checkbox" id="xiaomi-brand" name="xiaomi-brand" value="Xiaomi">
-                        <label class="filter-text" for="xiaomi-brand">Xiaomi</label><br>
+                        <input type="checkbox" id="xiaomi_brand" name="xiaomi_brand" value="Xiaomi">
+                        <label class="filter-text" for="xiaomi_brand">Xiaomi</label><br>
                     </div>
+                    <hr>
+                    <div>
+                        <label class="filter-text-section">Rating:</label><br>
+
+                        <input type="checkbox" id="1star" name="1star" value="OneStar">
+                        <label class="filter-text" for="1star">One Star</label><br>
+
+                        <input type="checkbox" id="2star" name="2star" value="TwoStar">
+                        <label class="filter-text" for="2star">Two Star</label><br>
+
+                        <input type="checkbox" id="3star" name="3star" value="ThreeStar">
+                        <label class="filter-text" for="3star">Three Star</label><br>
+
+                        <input type="checkbox" id="4star" name="4star" value="FourStar">
+                        <label class="filter-text" for="4star">Four Star</label><br>
+
+                        <input type="checkbox" id="5star" name="5star" value="FiveStar">
+                        <label class="filter-text" for="5star">Five Star</label><br>
+                    </div>
+                    <hr>
+                    <input class="basic-button" type="submit" id="submit" value="Update">
+                    <a class="basic-button" href="{{ url_for('resetFilters') }}">Reset</a>
                 </form>
             </div>
             <!-- main phones -->
@@ -61,48 +83,51 @@
                 {% endif %}
                 <!-- repeating loop of all products -->
                 {% for each in products %}
-                <div class="product-background-box" style="padding: 10px">
-                    <a class="product-box-text" href="{{ url_for('detail', indexID=each.id) }}">
-                        <div class="product-box place-bot" style="padding: 10px; color: rgb(35, 35, 35);">
-                            <div class="horizontal-divs">
-                                <div style="width: 300px;">
-                                    <h4>{{each.product_name}} {% if CurrentUser.permission == "Admin" or CurrentUser.permission == "Seller" %}(ID: {{each.id}}){% endif %}</h4>
-                                    <h5>£{{each.price}}</h5>
-                                    <b>Storage Sizes:</b><br>
-                                    {% if each.storage_sizes is none %}
-                                        No Storage Sizes Found
-                                    {% else %}
-                                        {% for eachsize in each.storage_sizes %}
-                                        {{eachsize}},
-                                        {% endfor %}
-                                    {% endif %}
-                                    <br>
-                                    <b>Colours:</b><br>
-                                    {% if each.colours is none %}
-                                        No Colours Found
-                                    {% else %}
-                                        {% for eachcolour in each.colours %}
-                                        {{eachcolour}},
-                                        {% endfor %}
+                    <!-- checking filters (brands) -->
+                    {% if each.sellerid is not in filteredBrands %}
+                        <div class="product-background-box" style="padding: 10px">
+                            <a class="product-box-text" href="{{ url_for('detail', indexID=each.id) }}">
+                                <div class="product-box place-bot" style="padding: 10px; color: rgb(35, 35, 35);">
+                                    <div class="horizontal-divs">
+                                        <div style="width: 300px;">
+                                            <h4>{{each.product_name}} {% if CurrentUser.permission == "Admin" or CurrentUser.permission == "Seller" %}(ID: {{each.id}}){% endif %}</h4>
+                                            <h5>£{{each.price}}</h5>
+                                            <b>Storage Sizes:</b><br>
+                                            {% if each.storage_sizes is none %}
+                                                No Storage Sizes Found
+                                            {% else %}
+                                                {% for eachsize in each.storage_sizes %}
+                                                {{eachsize}},
+                                                {% endfor %}
+                                            {% endif %}
+                                            <br>
+                                            <b>Colours:</b><br>
+                                            {% if each.colours is none %}
+                                                No Colours Found
+                                            {% else %}
+                                                {% for eachcolour in each.colours %}
+                                                {{eachcolour}},
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            {% if each.imageid is not none %}
+                                            <img src="{{ url_for('static', filename=each.imageid) }}" alt="Product Image" class="product-image">
+                                            {% else %}
+                                            No Image Found
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% if CurrentUser.permission == "Admin" or (CurrentUser.permission == "Seller" and each.sellerid == CurrentUser.email) %}
+                                    <div>
+                                        <a class="product-bottom-button" href="{{ url_for('form', indexID=each.id) }}">Edit</a>
+                                        <a class="product-bottom-button" href="{{ url_for('delete', indexID=each.id) }}">Delete</a>
+                                    </div>
                                     {% endif %}
                                 </div>
-                                <div>
-                                    {% if each.imageid is not none %}
-                                    <img src="{{ url_for('static', filename=each.imageid) }}" alt="Product Image" class="product-image">
-                                    {% else %}
-                                    No Image Found
-                                    {% endif %}
-                                </div>
-                            </div>
-                            {% if CurrentUser.permission == "Admin" or (CurrentUser.permission == "Seller" and each.sellerid == CurrentUser.email) %}
-                            <div>
-                                <a class="product-bottom-button" href="{{ url_for('form', indexID=each.id) }}">Edit</a>
-                                <a class="product-bottom-button" href="{{ url_for('delete', indexID=each.id) }}">Delete</a>
-                            </div>
-                            {% endif %}
+                            </a>
                         </div>
-                    </a>
-                </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
