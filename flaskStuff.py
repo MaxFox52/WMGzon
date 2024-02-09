@@ -243,9 +243,6 @@ def FilterProducts():
     global filteredBrands
     global filteredRatings
 
-    aPManager = ProductManager()
-    products = aPManager.getProducts()
-
     # brand filtering
     if request.form.get('apple_brand'):
         filteredBrands.append("admin@apple.com")
@@ -260,20 +257,17 @@ def FilterProducts():
     if request.form.get('xiaomi_brand'):
         filteredBrands.append("admin@xiaomi.com")
 
-    return render_template('Phones-Page.html', page_name="Phones Page", products = products, CurrentUser = CurrentUser, filteredBrands = filteredBrands, filteredRatings = filteredRatings)
+    return redirect(url_for('phones_page', filteredBrands = filteredBrands, filteredRatings = filteredRatings))
 
 @app.route('/resetFilters')
 def resetFilters():
     global filteredBrands
     global filteredRatings
 
-    aPManager = ProductManager()
-    products = aPManager.getProducts()
-
     filteredBrands = []
     filteredRatings = []
 
-    return render_template('Phones-Page.html', page_name="Phones Page", products = products, CurrentUser = CurrentUser, filteredBrands = filteredBrands, filteredRatings = filteredRatings)
+    return redirect(url_for('phones_page', filteredBrands = filteredBrands, filteredRatings = filteredRatings))
 
 #################################### Start ####################################
 
