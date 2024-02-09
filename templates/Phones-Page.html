@@ -24,6 +24,7 @@
             <div class="filter-box col-sm-2">
                 <label class="filter-title">Filters</label>
                 <form method="POST" action="/filter-products">
+                    <!-- filter by brand -->
                     <div>
                         <label class="filter-text-section">Brand:</label><br>
 
@@ -46,6 +47,7 @@
                         <label class="filter-text" for="xiaomi_brand">Xiaomi</label><br>
                     </div>
                     <hr>
+                    <!-- filter by rating -->
                     <div>
                         <label class="filter-text-section">Rating:</label><br>
 
@@ -65,6 +67,7 @@
                         <label class="filter-text" for="5star">Five Star</label><br>
                     </div>
                     <hr>
+                    <!-- reset and update filters -->
                     <input class="basic-button" type="submit" id="submit" value="Update">
                     <a class="basic-button" href="{{ url_for('resetFilters') }}">Reset</a>
                 </form>
@@ -118,6 +121,7 @@
                                             {% endif %}
                                         </div>
                                     </div>
+                                    <!-- adding in buttons to edit and delete a product if they are the correct role -->
                                     {% if CurrentUser.permission == "Admin" or (CurrentUser.permission == "Seller" and each.sellerid == CurrentUser.email) %}
                                     <div>
                                         <a class="product-bottom-button" href="{{ url_for('form', indexID=each.id) }}">Edit</a>

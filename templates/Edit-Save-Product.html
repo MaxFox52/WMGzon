@@ -23,6 +23,7 @@
             <div class="col-sm-3">
                 <!-- space filler -->
             </div>
+            <!-- creating / editing a product -->
             <div class="col-sm-6 basic-box" style="padding: 10px">
                 <form method="POST" action="{{ url_for('save') if product is none else url_for('update', indexID=indexID) }}">
                     {% if product is none %}

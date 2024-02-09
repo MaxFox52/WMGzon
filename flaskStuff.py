@@ -64,6 +64,7 @@ CurrentUser = None
 
 @app.route('/product-details/<int:indexID>')
 def detail(indexID):
+    # getting details of one specific product to display on the page
     aPManager = ProductManager()
     aProduct = aPManager.getProduct(indexID)
     if aProduct is not None:
