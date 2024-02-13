@@ -12,8 +12,15 @@ createAccountErrorInfor = ""
 
 possible_storage = [16, 32, 64, 128, 256, 512, 1, 2, 4]
 
+
 filteredBrands = []
 filteredRatings = []
+priceDict = {
+        "filteredBrands":[],
+        "filteredRatings":[],
+        "priceLower":0,
+        "priceUpper":99999
+    }
 
 #################################### Users / Accounts ####################################
 
@@ -140,7 +147,7 @@ def landing_page():
 def phones_page():
     aPManager = ProductManager()
     products = aPManager.getProducts()
-    return render_template('Phones-Page.html', page_name="Phones Page", products = products, CurrentUser = CurrentUser, filteredBrands = filteredBrands, filteredRatings = filteredRatings)
+    return render_template('Phones-Page.html', page_name="Phones Page", products = products, CurrentUser = CurrentUser,  priceDict = priceDict, filteredBrands = filteredBrands, filteredRatings = filteredRatings)
 
 @app.route('/login')
 def login():
@@ -242,6 +249,7 @@ def CreateAccountForm():
 def FilterProducts():
     global filteredBrands
     global filteredRatings
+    global priceDict
 
     # brand filtering
     if request.form.get('apple_brand'):
@@ -257,17 +265,27 @@ def FilterProducts():
     if request.form.get('xiaomi_brand'):
         filteredBrands.append("admin@xiaomi.com")
 
-    return redirect(url_for('phones_page', filteredBrands = filteredBrands, filteredRatings = filteredRatings))
+    priceDict = {
+        "priceLower":0,
+        "priceUpper":99999
+    }
+    return redirect(url_for('phones_page', priceDict = priceDict, filteredBrands = filteredBrands, filteredRatings = filteredRatings))
 
 @app.route('/resetFilters')
 def resetFilters():
     global filteredBrands
     global filteredRatings
+    global priceDict
+
+    priceDict = {
+        "priceLower":0,
+        "priceUpper":99999
+    }
 
     filteredBrands = []
     filteredRatings = []
 
-    return redirect(url_for('phones_page', filteredBrands = filteredBrands, filteredRatings = filteredRatings))
+    return redirect(url_for('phones_page', priceDict = priceDict, filteredBrands = filteredBrands, filteredRatings = filteredRatings))
 
 #################################### Start ####################################
 
