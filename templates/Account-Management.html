@@ -38,9 +38,40 @@
                 <!-- space filler -->
             </div>
         </div>
+        {% if CurrentUser.permission == "Seller" %}
+        <div class="content">
+            <div class="basic-box" style="padding: 10px;">
+                <table>
+                    <tr>
+                        <th>Product</th>
+                        <th>Photo</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Colours</th>
+                        <th>Storage Sizes</th>
+                        <th colspan="2">Customise</th>
+                    </tr>
+                    {% for each in products %}
+                        {% if each.sellerid == CurrentUser.email %}
+                            <tr>
+                                <td>{{each.product_name}}</td>
+                                <td><img src="{{ url_for('static', filename=each.imageid) }}" alt="Product Image" class="product-image-table"></td>
+                                <td>£{{each.price}}</td>
+                                <td class="no-overflow-table">{{each.description}}</td>
+                                <td style="text-align: center;">{{each.colours | length}}</td>
+                                <td style="text-align: center;">{{each.storage_sizes | length}}</td>
+                                <td><a class="product-bottom-button" href="{{ url_for('form', indexID=each.id) }}">Edit</a></td>
+                                <td><a class="product-bottom-button" href="{{ url_for('delete', indexID=each.id) }}">Delete</a></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% endif %}
         <br>
         <a href="http://127.0.0.1:5000/logout">
-            <div class="center-content">
+            <div class="center-content" style="padding-bottom: 25px;">
                 <button class="log-out-button">Log Out</button>
             </div>
         </a>
