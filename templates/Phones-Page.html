@@ -48,7 +48,7 @@
                     </div>
                     <hr>
                     <!-- filter by rating -->
-                    <div>
+                    <!-- <div>
                         <label class="filter-text-section">Rating:</label><br>
 
                         <input type="checkbox" id="1star" name="1star" value="OneStar">
@@ -65,6 +65,18 @@
 
                         <input type="checkbox" id="5star" name="5star" value="FiveStar">
                         <label class="filter-text" for="5star">Five Star</label><br>
+                    </div>
+                    <hr> -->
+                    <div>
+                        <label class="filter-text-section">Price:</label><br>
+
+                        <label class="filter-text">Lowest:</label><br>
+                        <label class="filter-text">£</label>
+                        <input type="number" id="lowerbound" name="lowerbound" value="0"><br>
+
+                        <label class="filter-text">Highest:</label><br>
+                        <label class="filter-text">£</label>
+                        <input type="number" id="upperbound" name="upperbound" value="99999">
                     </div>
                     <hr>
                     <!-- reset and update filters -->
@@ -86,8 +98,10 @@
                 {% endif %}
                 <!-- repeating loop of all products -->
                 {% for each in products %}
-                    <!-- checking filters (brands) -->
-                    {% if each.sellerid is not in filteredBrands %}
+                    <!-- checking filters -->
+                    {% if each.sellerid is not in filteredBrands
+                        and each.price | int  >= priceDict["priceLower"] | int 
+                        and each.price | int  <= priceDict["priceUpper"] | int %}
                         <div class="product-background-box" style="padding: 10px">
                             <a class="product-box-text" href="{{ url_for('detail', indexID=each.id) }}">
                                 <div class="product-box place-bot" style="padding: 10px; color: rgb(35, 35, 35);">

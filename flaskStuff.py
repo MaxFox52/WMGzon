@@ -165,9 +165,12 @@ def login():
 def form_login():
     global CurrentUser
 
+    aPManager = ProductManager()
+    products = aPManager.getProducts()
+
     # user is logged into an account
     if CurrentUser is not None:
-        return render_template('Account-Management.html', page_name="Account Management", CurrentUser=CurrentUser)
+        return render_template('Account-Management.html', page_name="Account Management", CurrentUser=CurrentUser, products = products)
     # user is NOT logged into an account
     else:
         tempemail = request.form['username']
@@ -177,7 +180,7 @@ def form_login():
         for each in UserListObj.UserArray:
             if each.email == tempemail and each.password == temppass:
                 CurrentUser = each
-                return render_template('Account-Management.html', page_name="Account Management", CurrentUser=CurrentUser)
+                return render_template('Account-Management.html', page_name="Account Management", CurrentUser=CurrentUser, products = products)
         
         return redirect(url_for('login', loginErrorInfo="Invalid Information"))
 
@@ -265,10 +268,20 @@ def FilterProducts():
     if request.form.get('xiaomi_brand'):
         filteredBrands.append("admin@xiaomi.com")
 
-    priceDict = {
-        "priceLower":0,
-        "priceUpper":99999
-    }
+    lowerBound = request.form.get("lowerbound")
+    upperBound = request.form.get("upperbound")
+
+    if upperBound > lowerBound:
+        priceDict = {
+            "priceLower":lowerBound,
+            "priceUpper":upperBound
+        }
+    else:
+        priceDict = {
+            "priceLower":0,
+            "priceUpper":99999
+        }
+
     return redirect(url_for('phones_page', priceDict = priceDict, filteredBrands = filteredBrands, filteredRatings = filteredRatings))
 
 @app.route('/resetFilters')
