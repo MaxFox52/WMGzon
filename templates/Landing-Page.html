@@ -1,26 +1,54 @@
 <!-- Landing-Page.html -->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Webpage title -->
-        <title>WMGzon - {{page_name}}</title>
-        <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='WMGzon-Icon.png') }}">
+<head>
+    <!-- Webpage title -->
+    <title>WMGzon - {{page_name}}</title>
+    <link rel="icon" type="image/x-icon" src="{{ url_for('static', filename='WMGzon-Icon.png') }}">
 
-        <!-- Bootstrap stuff -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap stuff -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        <!-- My custom CSS (must go after to take priority) -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='Global-CSS.css') }}">
-    </head>
-    <body>
-        {% extends 'index.html' %}
+    <!-- My custom CSS (must go after to take priority) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='Global-CSS.css') }}">
+</head>
+<body>
+    {% extends 'index.html' %}
 
-        {% block content %}
-        <p>Welcome to the Landing Page</p>
-        <!-- Add landing page content here -->
-        {% endblock %}
-    </body>
+    {% block content %}
+    <div class="content">
+        <div class="col-sm-2 basic-box">
+            <p class="landing-text">Welcome to WMGzon!</p>
+            <p class="landing-text">Here you can navigate the various products we sell. Feel free to explore our products in depth by clicking into them, or even filtering what products you can see by lookiong at individual sections.</p>
+        </div>
+        <div class="col-sm-10">
+            <div class="content" style="flex-wrap: wrap">
+                {% for each in products %}
+                <div class="product-background-box-landing" style="padding: 10px">
+                    <a class="product-box-text-landing" href="{{ url_for('detail', indexID=each.id) }}">
+                        <div class="product-box-landing place-bot" style="padding: 10px; color: rgb(35, 35, 35);">
+                            <div style="width: 300px;">
+                                <h4>{{each.product_name}}</h4>
+                                <h6>£{{each.price}}</h6>
+                            </div>
+                            <div style="text-align: center;">
+                                {% if each.imageid is not none %}
+                                <img src="{{ url_for('static', filename=each.imageid) }}" alt="Product Image"
+                                    class="product-image-landing">
+                                {% else %}
+                                No Image Found
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
 </html>

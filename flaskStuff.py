@@ -101,7 +101,7 @@ def save():
     # sellerid
     aProduct.sellerid = CurrentUser.email
     # rating
-    aProduct.rating = aProduct.rating
+    aProduct.rating = 5
     # finalising product
     aPManager = ProductManager()
     aPManager.insertProduct(aProduct)
@@ -125,7 +125,7 @@ def update(indexID):
     # sellerid
     aProduct.sellerid = CurrentUser.email
     # rating
-    aProduct.rating = aProduct.rating
+    aProduct.rating = 5
     # finalising product
     aPManager = ProductManager()
     aPManager.updateProduct(indexID, aProduct)
@@ -141,7 +141,9 @@ def delete(indexID):
 
 @app.route('/')
 def landing_page():
-    return render_template('Landing-Page.html', page_name="Landing Page", CurrentUser = CurrentUser)
+    aPManager = ProductManager()
+    products = aPManager.getProducts()
+    return render_template('Landing-Page.html', page_name="Landing Page", CurrentUser = CurrentUser, products = products)
 
 @app.route('/phones')
 def phones_page():
