@@ -22,9 +22,19 @@
         {% extends 'index-small.html' %}
 
         {% block content %}
-        <div class="container" style="padding-top: 50px">
+        <div class="container" style="padding-top: 20px">
             <div class="basic-box">
-                <h1>{{product.product_name}} Statistics</h1>
+                <h1 class="black-text">{{product.product_name}} Statistics</h1>
+                Rating:
+                <div class="star-divs">
+                    {% for i in range(product.rating) %}
+                        <img src="{{ url_for('static', filename='fullstar.png') }}" class="star-image-size">
+                    {% endfor %}
+                    {% for i in range(5 - product.rating) %}
+                        <img src="{{ url_for('static', filename='fullstar-blank.png') }}" class="star-image-size">
+                    {% endfor %}
+                </div>
+                Sales Data:
                 <canvas id="myChart" width="400" height="150"></canvas>
             </div>
         </div>
@@ -40,7 +50,7 @@
                     let modification = Math.floor(Math.random() * 31000) - 15000; // random number between -10 and 10
                     let newData = chartData[i - 1] + modification;
 
-                    newData = Math.max(0, Math.min(99999, newData)); // keeps data above 0
+                    newData = Math.max(0, Math.min(999999, newData)); // keeps data above 0
 
                     chartData.push(newData);
                 }
@@ -50,7 +60,7 @@
             const data = {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
                 datasets: [{
-                    label: '{{product.product_name}} Sales',
+                    label: '{{product.product_name}} Units Sold',
                     data: generateRandomData(),
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: '#c27400',

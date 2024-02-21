@@ -55,6 +55,9 @@ p {
     text-decoration: underline;
     color: #262626;
 }
+.black-text {
+    color: #262626;
+}
 
 /* landing page */
 .product-box-landing {
@@ -437,6 +440,17 @@ th:nth-child(3) {
 }
 
 .radio-buttons-horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+/* product statistics */
+.star-image-size {
+    height: 30px;
+    width: 30px
+}
+
+.star-divs {
     display: flex;
     flex-direction: row;
 }
