@@ -49,7 +49,7 @@
                         <th>Description</th>
                         <th>Colours</th>
                         <th>Storage Sizes</th>
-                        <th colspan="2">Customise</th>
+                        <th colspan="3">Customise</th>
                     </tr>
                     {% for each in products %}
                         {% if each.sellerid == CurrentUser.email %}
@@ -60,6 +60,7 @@
                                 <td class="no-overflow-table">{{each.description}}</td>
                                 <td style="text-align: center;">{{each.colours | length}}</td>
                                 <td style="text-align: center;">{{each.storage_sizes | length}}</td>
+                                <td><a class="product-bottom-button" href="{{ url_for('info', indexID=each.id) }}">Info</a></td>
                                 <td><a class="product-bottom-button" href="{{ url_for('form', indexID=each.id) }}">Edit</a></td>
                                 <td><a class="product-bottom-button" href="{{ url_for('delete', indexID=each.id) }}">Delete</a></td>
                             </tr>

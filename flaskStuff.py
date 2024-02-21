@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request
 import json
 from jsonmanager import ProductManager
 from models import Product
+import random
 
 app = Flask(__name__)
 
@@ -69,15 +70,16 @@ CurrentUser = None
 
 #################################### Interacting with Products ####################################
 
+# for when you click into a specific product
 @app.route('/product-details/<int:indexID>')
 def detail(indexID):
-    # getting details of one specific product to display on the page
     aPManager = ProductManager()
     aProduct = aPManager.getProduct(indexID)
     if aProduct is not None:
         return render_template('Product-Details.html', product = aProduct)
     return redirect(url_for('phones_page'))
 
+# for when a seller / admin is creating or editing a product
 @app.route('/product-editing')
 @app.route('/product-editing/<int:indexID>')
 def form(indexID=None):
@@ -87,6 +89,16 @@ def form(indexID=None):
         aProduct = aPManager.getProduct(indexID)
     return render_template('Edit-Save-Product.html', indexID=indexID, product = aProduct, possible_storage = possible_storage)
 
+# for the page to display statistics on the product
+@app.route('/product-info/<int:indexID>')
+def info(indexID):
+    aPManager = ProductManager()
+    aProduct = aPManager.getProduct(indexID)
+    if aProduct is not None:
+        return render_template('Product-Info.html', product = aProduct)
+    return redirect(url_for('form_login'))
+
+# to save the data once a product has been made or edited
 @app.route('/save', methods=['POST'])
 def save():
     aProduct = Product.populate(request.form)
@@ -101,12 +113,13 @@ def save():
     # sellerid
     aProduct.sellerid = CurrentUser.email
     # rating
-    aProduct.rating = 5
+    aProduct.rating = random.randint(1, 5)
     # finalising product
     aPManager = ProductManager()
     aPManager.insertProduct(aProduct)
     return redirect(url_for('phones_page'))
 
+# to save the data once a product has been made or edited
 @app.route('/update/<int:indexID>', methods=['GET', 'POST'])
 def update(indexID):
     global CurrentUser
@@ -125,12 +138,13 @@ def update(indexID):
     # sellerid
     aProduct.sellerid = CurrentUser.email
     # rating
-    aProduct.rating = 5
+    aProduct.rating = random.randint(1, 5)
     # finalising product
     aPManager = ProductManager()
     aPManager.updateProduct(indexID, aProduct)
     return redirect(url_for('phones_page'))
 
+#for deleting products
 @app.route('/delete/<int:indexID>', methods=['GET'])
 def delete(indexID):
     aPManager = ProductManager()
