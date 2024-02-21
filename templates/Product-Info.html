@@ -27,15 +27,17 @@
                 <h1 class="black-text">{{product.product_name}} Statistics</h1>
                 Rating:
                 <div class="star-divs">
+                    <!-- creates the coloured stars -->
                     {% for i in range(product.rating) %}
                         <img src="{{ url_for('static', filename='fullstar.png') }}" class="star-image-size">
                     {% endfor %}
+                    <!-- creates the blank stars -->
                     {% for i in range(5 - product.rating) %}
                         <img src="{{ url_for('static', filename='fullstar-blank.png') }}" class="star-image-size">
                     {% endfor %}
                 </div>
                 Sales Data:
-                <canvas id="myChart" width="400" height="150"></canvas>
+                <canvas id="salesgraph" width="400" height="150"></canvas>
             </div>
         </div>
         <script>
@@ -57,31 +59,29 @@
                 return chartData;
             }
 
-            const data = {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: '{{product.product_name}} Units Sold',
-                    data: generateRandomData(),
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: '#c27400',
-                    borderWidth: 1
-                }]
-            };
             const config = {
-                type: 'line',
-                data: data,
+                type: 'line', // line graph
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'], // months of the year
+                    datasets: [{
+                        label: '{{product.product_name}} Units Sold', // title
+                        data: generateRandomData(), // data gotten from function above
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)', //background colour
+                        borderColor: '#c27400', // line colour
+                        borderWidth: 1 // line width
+                    }]},
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true,
-                            min: 0
+                            beginAtZero: true, // keeps graph starting at 0
+                            min: 0 // sets minimum value to 0
                         }
                     }
                 }
             };
 
-            const myChart = new Chart(
-                document.getElementById('myChart'),
+            const salesgraph = new Chart(
+                document.getElementById('salesgraph'),
                 config
             );
         </script>
