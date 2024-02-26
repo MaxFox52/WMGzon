@@ -3,6 +3,7 @@ import json
 from jsonmanager import ProductManager
 from models import Product
 import random
+from datetime import date
 
 app = Flask(__name__)
 
