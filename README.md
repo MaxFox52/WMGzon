@@ -8,7 +8,7 @@
 
 5. This was made using python version 3.12.0 and flask version 3.0.0. If there are any problems with running the website, ensure you are running these versions with "python --version" and "flask --version"
 
-6. Run "flaskStuff.py" to start the website, and then go to the link it provides in the terminal - likely "127.0.0.0:5000" - to use it.
+6. Run "flaskStuff.py" to start the website, and then go to the link it provides in the terminal - likely "127.0.0.1:5000" - to use it.
 
 ## Account Login Info ##
 Admin user: admin@admin.com

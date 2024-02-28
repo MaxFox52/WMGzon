@@ -77,9 +77,17 @@
             </div>
             <!-- Purchase item section -->
             <div class="col-sm-3 background-boxes">
-                <div class="purchasing-box">
+                <div class="purchasing-box" style="padding: 10px;">
                     <label class="heading-label">Buy Now</label><br>
-                    Order within the next 4 hours and recieve today!
+                    Order within the next 4 hours and recieve today!<br><br><br>
+                    <div style="padding-bottom: 10px;">
+                        Quantity: &nbsp;
+                        <select name="quantity" id="quantity">
+                            {% for i in range(1,16) %}
+                                <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                     <div class="place-mid">
                         <a class="basic-button">Add to Basket</a>
                     </div>
