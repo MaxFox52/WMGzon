@@ -3,10 +3,11 @@ import pytest
 from unittest.mock import mock_open, patch
 from jsonmanager import ProductManager
 
-# Sample product dictionary for testing
+# sample product dictionary for testing
 sample_product = {"id": 1, "product_name": "Product", "storage_sizes": [128, 256, 512, 1], "colours": ["Red", "Blue"], "description": "Description", "imageid": "image.png", "product_type": "phone", "price": "949", "sellerid": "seller", "rating": 5}
 another_product = {"id": 2, "product_name": "Product2", "storage_sizes": [256, 512], "colours": ["Red"], "description": "Description", "imageid": "image.png", "product_type": "phone", "price": "949", "sellerid": "seller", "rating": 5}
 
+# tests that data loads correctly
 def test_load_data():
     with patch('builtins.open', mock_open(read_data=json.dumps([sample_product]))) as mocked_file:
         with patch('json.load', return_value=[sample_product]):
@@ -14,6 +15,7 @@ def test_load_data():
             assert manager.getProducts() == [sample_product]
             mocked_file.assert_called_once_with(ProductManager.JSON_FILE)
 
+# tests that data can be saved correctly
 def test_save_data():
     with patch('builtins.open', mock_open()) as mocked_file:
         with patch('json.dump') as mocked_json_dump:
@@ -22,37 +24,42 @@ def test_save_data():
             mocked_file.assert_called_once_with(ProductManager.JSON_FILE, 'w')
             mocked_json_dump.assert_called_once_with([sample_product], mocked_file())
 
+# tests that products can be instered into the database correctly
 def test_insert_product():
-    with patch('builtins.open', mock_open()) as mocked_file:
+    with patch('builtins.open', mock_open()):
         with patch('json.dump'), patch('json.load', return_value=[sample_product]):
             manager = ProductManager()
             manager.insertProduct(another_product)
             assert manager.getProducts()[0]['id'] == sample_product['id'] + 1
             assert manager.getProducts()[0] == another_product.toDic()
 
+# tests that products already in the database can be updated
 def test_update_product():
     updated_product = {"id": 1, "product_name": "Product", "storage_sizes": [128, 256, 512, 1], "colours": ["Red", "Blue"], "description": "Description", "imageid": "image.png", "product_type": "phone", "price": "120", "sellerid": "seller", "rating": 5}
-    with patch('builtins.open', mock_open()) as mocked_file:
+    with patch('builtins.open', mock_open()):
         with patch('json.dump'), patch('json.load', return_value=[sample_product]):
             manager = ProductManager()
             manager.updateProduct(1, updated_product)
             assert manager.getProducts()[0] == updated_product.toDic()
 
+# tests you can delete products
 def test_delete_product():
-    with patch('builtins.open', mock_open()) as mocked_file:
+    with patch('builtins.open', mock_open()):
         with patch('json.dump'), patch('json.load', return_value=[sample_product, another_product]):
             manager = ProductManager()
             manager.deleteProduct(1)
             assert sample_product not in manager.getProducts()
 
+# tests you can retrieve all products
 def test_get_products():
     with patch('builtins.open', mock_open(read_data=json.dumps([sample_product]))):
         with patch('json.load', return_value=[sample_product]):
             manager = ProductManager()
             assert manager.getProducts() == [sample_product]
 
+# tests you can retrieve one product
 def test_get_product():
-    with patch('builtins.open', mock_open()) as mocked_file:
+    with patch('builtins.open', mock_open()):
         with patch('json.dump'), patch('json.load', return_value=[sample_product, another_product]):
             manager = ProductManager()
             product = manager.getProduct(2)
