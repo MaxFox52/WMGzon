@@ -1,3 +1,5 @@
+#################################### Imports ####################################
+
 from flask import Flask, render_template, url_for, redirect, request
 import json
 from jsonmanager import ProductManager
@@ -164,7 +166,10 @@ def landing_page():
 def phones_page():
     aPManager = ProductManager()
     products = aPManager.getProducts()
-    return render_template('Phones-Page.html', page_name="Phones Page", products = products, CurrentUser = CurrentUser,  priceDict = priceDict, filteredBrands = filteredBrands, filteredRatings = filteredRatings)
+    return render_template('Phones-Page.html', page_name="Phones Page", 
+                           products = products, CurrentUser = CurrentUser,  
+                           priceDict = priceDict, filteredBrands = filteredBrands, 
+                           filteredRatings = filteredRatings)
 
 @app.route('/login')
 def login():
@@ -176,7 +181,8 @@ def login():
     # user is NOT logged into an account
     else:
         loginErrorInfo = request.args.get('loginErrorInfo', '')
-        return render_template("Login-Page.html", page_name="Login", CurrentUser = CurrentUser, loginErrorInfo=loginErrorInfo)
+        return render_template("Login-Page.html", page_name="Login", CurrentUser = CurrentUser, 
+                               loginErrorInfo=loginErrorInfo)
 
 @app.route('/account', methods=['GET', 'POST'])
 def form_login():
@@ -187,7 +193,8 @@ def form_login():
 
     # user is logged into an account
     if CurrentUser is not None:
-        return render_template('Account-Management.html', page_name="Account Management", CurrentUser=CurrentUser, products = products)
+        return render_template('Account-Management.html', page_name="Account Management", 
+                               CurrentUser=CurrentUser, products = products)
     # user is NOT logged into an account
     else:
         tempemail = request.form['username']
@@ -197,7 +204,8 @@ def form_login():
         for each in UserListObj.UserArray:
             if each.email == tempemail and each.password == temppass:
                 CurrentUser = each
-                return render_template('Account-Management.html', page_name="Account Management", CurrentUser=CurrentUser, products = products)
+                return render_template('Account-Management.html', page_name="Account Management", 
+                                       CurrentUser=CurrentUser, products = products)
         
         return redirect(url_for('login', loginErrorInfo="Invalid Information"))
 
@@ -206,6 +214,8 @@ def LogOut():
     global CurrentUser
     CurrentUser = None
     return redirect(url_for('login', loginErrorInfo=""))
+
+#################################### Creating Accounts ####################################
 
 @app.route('/create-account')
 def CreateAccount():
@@ -264,6 +274,8 @@ def CreateAccountForm():
         json.dump(data, file, indent=4)
 
     return redirect(url_for('login', loginErrorInfo=""))
+
+#################################### Filtering Products ####################################
 
 @app.route('/filter-products', methods=['GET', 'POST'])
 def FilterProducts():
